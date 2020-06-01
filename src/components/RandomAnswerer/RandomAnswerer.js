@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import titles from "../titles.json";
+import titles from "../../titles.json";
 import PropTypes from "prop-types";
 
 export const RandomAnswerer = ({ answerers }) => {

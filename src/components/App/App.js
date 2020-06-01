@@ -1,8 +1,8 @@
 import React from "react";
-import students from "../students.json";
-import { RandomAnswerer } from "./RandomAnswerer";
-import { StudentsList } from "./StudentsList";
-import { Center } from "./Center";
+import students from "../../students.json";
+import { RandomAnswerer } from "../RandomAnswerer/RandomAnswerer";
+import { StudentsList } from "../StudentsList/StudentsList";
+import { Center } from "../Center/Center";
 
 function App() {
   return (
