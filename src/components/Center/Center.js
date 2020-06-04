@@ -1,5 +1,5 @@
-import React from "react";
+import styled from "styled-components";
 
-export const Center = ({ children }) => {
-  return <div style={{ textAlign: "center" }}>{children}</div>;
-};
+export const Center = styled.div`
+  text-align: center;
+`;
