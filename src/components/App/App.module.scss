@@ -1,0 +1,38 @@
+$breakpoint: 700px;
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{$breakpoint}) {
+    @content;
+  }
+}
+
+.appWrapper {
+  display: flex;
+  flex-direction: row;
+
+  @include mobile {
+    flex-direction: column-reverse;
+  }
+}
+
+.studentsListWrapper {
+  background: lightgray;
+
+  @include mobile {
+    flex-grow: 1;
+  }
+
+  @include desktop {
+    width: 250px;
+  }
+}
+
+.randomAnswererWrapper {
+  flex-grow: 5;
+}

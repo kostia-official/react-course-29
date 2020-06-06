@@ -1,16 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import MaterialTable from "material-table";
 
 export const StudentsList = ({ students, title = "Список студентов" }) => {
   return (
-    <Fragment>
-      <h2>{title}</h2>
-      <ul>
-        {students.map(student => {
-          return <li key={student.name}>{student.name}</li>;
-        })}
-      </ul>
-    </Fragment>
+    <MaterialTable
+      title={title}
+      columns={[{ title: "Имя", field: "name" }]}
+      data={students}
+      options={{
+        paging: false,
+        search: false,
+      }}
+    />
   );
 };
 
@@ -18,7 +20,7 @@ StudentsList.propTypes = {
   title: PropTypes.string,
   students: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
     }).isRequired
-  ).isRequired
+  ).isRequired,
 };
