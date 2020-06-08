@@ -1,24 +1,11 @@
-import React, { Fragment } from "react";
-import styled from "styled-components";
-import students from "../../students.json";
-import { RandomAnswerer } from "../RandomAnswerer/RandomAnswerer";
-import { StudentsList } from "../StudentsList/StudentsList";
-import { Center } from "../Center/Center";
-import { Header } from "../Header/Header";
-
-const breakpoint = "700px";
-
-const desktopStyles = (content) => `
-  @media (min-width: ${breakpoint}) {
-    ${content}
-  }
-`;
-
-const mobileStyles = (content) => `
-  @media (max-width: ${breakpoint}) {
-    ${content}
-  }
-`;
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
+import students from '../students.json';
+import { RandomAnswerer } from './RandomAnswerer';
+import { StudentsList } from './StudentsList';
+import { Center } from './Center';
+import { Header } from './Header';
+import { mobileStyles, desktopStyles } from '../styles/responsive';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -30,7 +17,7 @@ const AppWrapper = styled.div`
 `;
 
 const StudentsListWrapper = styled.div`
-  margin: 14px;
+  margin: 10px;
 
   ${desktopStyles(`
     width: 250px;
@@ -43,11 +30,10 @@ const StudentsListWrapper = styled.div`
 
 const RandomAnswererWrapper = styled.div`
   flex-grow: 5;
-  margin: 14px 14px 14px 0;
+  margin: 10px 10px 10px 0;
 
   ${mobileStyles(`
-    margin-left: 14px;
-    margin-bottom: 0px;
+    margin: 10px 10px 0 10px;
   `)}
 `;
 

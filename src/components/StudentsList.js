@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import MaterialTable from "material-table";
+import React from 'react';
+import PropTypes from 'prop-types';
+import MaterialTable from 'material-table';
 
-export const StudentsList = ({ students, title = "Список студентов" }) => {
+export const StudentsList = ({ students, title = 'Список студентов' }) => {
   return (
     <MaterialTable
       title={title}
-      columns={[{ title: "Имя", field: "name" }]}
+      columns={[{ title: 'Имя', field: 'name' }]}
       data={students}
       options={{
         paging: false,

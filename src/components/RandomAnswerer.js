@@ -1,14 +1,14 @@
-import React from "react";
-import _ from "lodash";
-import titles from "../../titles.json";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import React from 'react';
+import _ from 'lodash';
+import titles from '../titles.json';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 const RandomAnswererWrapper = styled.div`
-  display: ${(props) => (props.isShow ? "block" : "none")};
+  display: ${(props) => (props.isShow ? 'block' : 'none')};
 `;
 
 export const RandomAnswerer = ({ answerers }) => {
