@@ -6,26 +6,103 @@ import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
 
-const RandomAnswererWrapper = styled.div`
-  display: ${(props) => (props.isShow ? 'block' : 'none')};
+// const Showable = styled.div`
+//   display: ${(props) => (props.isShow ? 'block' : 'none')};
+// `;
+
+const CardContentStyled = styled(CardContent)`
+  margin: 30px 0;
 `;
 
-export const RandomAnswerer = ({ answerers }) => {
-  const wantsToAnswer = _.sample(answerers);
-  const title = _.sample(titles);
+const AnswererWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+`;
 
-  return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6">{title}</Typography>
-        <RandomAnswererWrapper isShow={true}>
-          <Typography>{wantsToAnswer.name}</Typography>
-        </RandomAnswererWrapper>
-      </CardContent>
-    </Card>
-  );
-};
+const CardActionsStyled = styled(CardActions)`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const ButtonStyled = styled(Button)`
+  min-width: 150px;
+`;
+
+export class RandomAnswerer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isShowAnswerer: false,
+      answerer: this.generateRandomAnswerer(),
+      title: this.generateRandomTitle(),
+    };
+  }
+
+  generateRandomAnswerer = () => {
+    return _.sample(this.props.answerers);
+  };
+
+  generateRandomTitle = () => {
+    return _.sample(titles);
+  };
+
+  toggleIsShowAnswerer = () => {
+    this.setState((state) => ({
+      isShowAnswerer: !state.isShowAnswerer,
+      answerer: this.generateRandomAnswerer(),
+    }));
+  };
+
+  nextAnswerer = () => {
+    this.setState({
+      answerer: this.generateRandomAnswerer(),
+      title: this.generateRandomTitle(),
+    });
+  };
+
+  onAnswer = (score) => () => {
+    this.props.onAnswer(this.state.answerer.id, score);
+  };
+
+  render() {
+    const { isShowAnswerer, title, answerer } = this.state;
+    const answererLabel = answerer?.name || 'Никого нет чтобы ответить :(';
+
+    return (
+      <Card>
+        <CardContentStyled>
+          <Typography variant="h6">{title}</Typography>
+          <AnswererWrapper>
+            {isShowAnswerer ? (
+              <Typography>{answererLabel}</Typography>
+            ) : (
+              <Button size="small" onClick={this.toggleIsShowAnswerer}>
+                Показать
+              </Button>
+            )}
+          </AnswererWrapper>
+        </CardContentStyled>
+        <CardActionsStyled>
+          <ButtonStyled size="small" onClick={this.onAnswer(10)}>
+            Правильно +10
+          </ButtonStyled>
+          <ButtonStyled size="small" onClick={this.onAnswer(5)}>
+            С подсказкой +5
+          </ButtonStyled>
+          <ButtonStyled size="small" onClick={this.nextAnswerer}>
+            Пропуск
+          </ButtonStyled>
+        </CardActionsStyled>
+      </Card>
+    );
+  }
+}
 
 RandomAnswerer.propTypes = {
   answerers: PropTypes.arrayOf(
