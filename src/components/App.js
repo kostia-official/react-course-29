@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { getStudents } from '../students.js';
+import { getStudents } from '../data/getStudents.js';
 import { RandomAnswerer } from './RandomAnswerer';
 import { StudentsList } from './StudentsList';
 import { Center } from './Center';
 import { Header } from './Header';
 import _ from 'lodash';
 import { mobileStyles, desktopStyles } from '../styles/responsive';
-import MaterialTable from 'material-table';
 import { Persist } from 'react-persist';
 
 const AppWrapper = styled.div`
@@ -38,6 +37,10 @@ const RandomAnswererWrapper = styled.div`
   ${mobileStyles(`
     margin: 10px 10px 0 10px;
   `)}
+`;
+
+const PresentStudentsListWrapper = styled.div`
+  margin-bottom: 10px;
 `;
 
 class App extends React.Component {
@@ -91,19 +94,21 @@ class App extends React.Component {
         <Header />
         <AppWrapper>
           <StudentsListWrapper>
-            <StudentsList
-              students={presentStudents}
-              onUpdateAttendance={this.updateAttendance}
-              actions={[
-                {
-                  icon: 'close',
-                  tooltip: 'Отсутствует',
-                  onClick: (event, rowData) => {
-                    this.updateAttendance(rowData.id);
+            <PresentStudentsListWrapper>
+              <StudentsList
+                students={presentStudents}
+                onUpdateAttendance={this.updateAttendance}
+                actions={[
+                  {
+                    icon: 'close',
+                    tooltip: 'Отсутствует',
+                    onClick: (event, rowData) => {
+                      this.updateAttendance(rowData.id);
+                    },
                   },
-                },
-              ]}
-            />
+                ]}
+              />
+            </PresentStudentsListWrapper>
             <StudentsList
               title="Отсутствующие"
               students={absentStudents}

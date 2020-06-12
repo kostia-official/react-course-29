@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import titles from '../titles.json';
+import titles from '../data/titles.json';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
@@ -8,10 +8,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
-
-// const Showable = styled.div`
-//   display: ${(props) => (props.isShow ? 'block' : 'none')};
-// `;
 
 const CardContentStyled = styled(CardContent)`
   margin: 30px 0;
@@ -30,7 +26,7 @@ const CardActionsStyled = styled(CardActions)`
 `;
 
 const ButtonStyled = styled(Button)`
-  min-width: 150px;
+  min-width: 110px;
 `;
 
 export class RandomAnswerer extends React.Component {
@@ -67,6 +63,8 @@ export class RandomAnswerer extends React.Component {
   };
 
   onAnswer = (score) => () => {
+    if (!this.state.answerer) return;
+
     this.props.onAnswer(this.state.answerer.id, score);
   };
 
