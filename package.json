@@ -2,6 +2,14 @@
   "name": "wants2answer",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && netlify deploy",
+    "deploy:prod": "npm run deploy -- --prod"
+  },
   "dependencies": {
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
@@ -12,16 +20,12 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-persist": "^1.0.2",
-    "react-scripts": "3.4.1",
     "styled-components": "^5.1.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "npm run build && netlify deploy",
-    "deploy:prod": "npm run deploy -- --prod"
+  "devDependencies": {
+    "node-sass": "^4.14.1",
+    "prettier": "^2.0.5",
+    "react-scripts": "^3.4.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,9 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "node-sass": "^4.14.1",
-    "prettier": "^2.0.5"
   }
 }
