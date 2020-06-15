@@ -1,139 +1,31 @@
-import React, { Fragment } from 'react';
-import styled from 'styled-components';
-import { getStudents } from '../data/getStudents.js';
-import { RandomAnswerer } from './RandomAnswerer';
-import { StudentsList } from './StudentsList';
-import { Center } from './Center';
-import { Header } from './Header';
-import _ from 'lodash';
-import { mobileStyles, desktopStyles } from '../styles/responsive';
-import { Persist } from 'react-persist';
+import React from 'react';
+import { Count } from './Count';
+import { Increment } from './Increment';
+import { Decrement } from './Decrement';
 
-const AppWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  ${mobileStyles(`
-    flex-direction: column-reverse;
-  `)}
-`;
-
-const StudentsListWrapper = styled.div`
-  margin: 10px;
-
-  ${desktopStyles(`
-    width: 280px;
-  `)}
-
-  ${mobileStyles(`
-    flex-grow: 1;
-  `)}
-`;
-
-const RandomAnswererWrapper = styled.div`
-  flex-grow: 5;
-  margin: 10px 10px 10px 0;
-
-  ${mobileStyles(`
-    margin: 10px 10px 0 10px;
-  `)}
-`;
-
-const PresentStudentsListWrapper = styled.div`
-  margin-bottom: 10px;
-`;
-
-class App extends React.Component {
+export class App extends React.Component {
   state = {
-    students: getStudents(),
+    count: 0,
+    step: 1,
   };
 
-  updateStudent = (id, updater) => {
-    this.setState((state) => {
-      const updatedStudents = _.map(state.students, (student) => {
-        if (student.id !== id) return student;
-
-        return {
-          ...student,
-          ...updater(student),
-        };
-      });
-
-      return {
-        students: updatedStudents,
-      };
-    });
+  increment = () => {
+    this.setState((state) => ({ count: state.count + state.step }));
   };
 
-  updateScore = (id, scoreToAdd) => {
-    this.updateStudent(id, (student) => ({
-      score: student.score + scoreToAdd,
-    }));
-  };
-
-  updateAttendance = (id) => {
-    this.updateStudent(id, (student) => ({
-      isPresent: !student.isPresent,
-    }));
+  decrement = () => {
+    this.setState((state) => ({ count: state.count - state.step }));
   };
 
   render() {
-    const { students } = this.state;
-    const presentStudents = _.filter(students, { isPresent: true });
-    const absentStudents = _.filter(students, { isPresent: false });
+    const { count } = this.state;
 
     return (
-      <Fragment>
-        <Persist
-          name="app"
-          data={this.state}
-          debounce={500}
-          onMount={(data) => this.setState(data)}
-        />
-
-        <Header />
-        <AppWrapper>
-          <StudentsListWrapper>
-            <PresentStudentsListWrapper>
-              <StudentsList
-                students={presentStudents}
-                onUpdateAttendance={this.updateAttendance}
-                actions={[
-                  {
-                    icon: 'close',
-                    tooltip: 'Отсутствует',
-                    onClick: (event, rowData) => {
-                      this.updateAttendance(rowData.id);
-                    },
-                  },
-                ]}
-              />
-            </PresentStudentsListWrapper>
-            <StudentsList
-              title="Отсутствующие"
-              students={absentStudents}
-              onUpdateAttendance={this.updateAttendance}
-              actions={[
-                {
-                  icon: 'add',
-                  tooltip: 'Присутствует',
-                  onClick: (event, rowData) => {
-                    this.updateAttendance(rowData.id);
-                  },
-                },
-              ]}
-            />
-          </StudentsListWrapper>
-
-          <RandomAnswererWrapper>
-            <Center>
-              <RandomAnswerer answerers={presentStudents} onAnswer={this.updateScore} />
-            </Center>
-          </RandomAnswererWrapper>
-        </AppWrapper>
-      </Fragment>
+      <div>
+        <Count count={count} />
+        <Increment onIncrement={this.increment} />
+        <Decrement onDecrement={this.decrement} />
+      </div>
     );
   }
 }
-
-export default App;
